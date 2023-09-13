@@ -8,12 +8,13 @@ Shown are the stock closing price and volume of GOOGLE!
 
 """)
 
-# -*
-#define the ticker symbol
+#Ticker symbol is the unique series of letters assigned to a companies stocks for trading purposes.
 tickerSymbol = 'GOOGL'
-#get data on this ticker
+
+#Extract/Get data of the particular ticker symbol.
 tickerData = yf.Ticker(tickerSymbol)
-#get the historical prices for this ticker
+
+
 tickerDf = tickerData.history(period='1d', start='2010-5-31', end='2020-5-31')
 
 
