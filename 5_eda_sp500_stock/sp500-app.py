@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import base64
 import matplotlib.pyplot as plt
-import seaborn as sns
 import numpy as np
 import yfinance as yf
 
@@ -17,7 +16,7 @@ This app retrieves the list of the **S&P 500** (from Wikipedia) and its correspo
 st.sidebar.header('User Input Features')
 
 # Web scraping of S&P 500 data
-@st.cache_data
+@st.cache_data 
 def load_data():
     url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
     html = pd.read_html(url, header = 0)
@@ -48,7 +47,6 @@ def filedownload(df):
 st.markdown(filedownload(df_selected_sector), unsafe_allow_html=True)
 
 
-
 data = yf.download(
         tickers = list(df_selected_sector[:10].Symbol),
         period = "ytd",
@@ -76,7 +74,7 @@ def price_plot(symbol):
     df = pd.DataFrame(data[symbol].Close)
     df['Date'] = df.index
     fig, ax = plt.subplots()
-    ax.fill_between(df.Date, df.Close, color='skyblue', alpha=0.3)
+    fig.fill_between(df.Date, df.Close, color='skyblue', alpha=0.3)
     ax.plot(df.Date, df.Close, color='skyblue', alpha=0.8)
     ax.tick_params(axis='x', rotation=90)
     ax.set_title(symbol, fontweight='bold')
@@ -85,7 +83,7 @@ def price_plot(symbol):
     return st.pyplot(fig)
 
 
-num_company = st.sidebar.slider('Number of Companies', 1, 5)
+num_company = st.sidebar.slider('Number of Companies', 1, 10)
 
 if st.button('Show Plots'):
     st.header('Stock Closing Price')
